@@ -1,0 +1,84 @@
+---
+import "../styles/global.css";
+import { PERSON, SITE_URL, type Lang } from "../content/site";
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  path: string;
+  alternates?: { lang: Lang; path: string }[];
+  noindex?: boolean;
+}
+
+const { lang, title, description, path, alternates = [], noindex = false } = Astro.props;
+const canonical = new URL(path, SITE_URL).href;
+const ogImage = new URL("/images/esteban-480.jpg", SITE_URL).href;
+
+const personLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: PERSON.name,
+  url: SITE_URL,
+  image: ogImage,
+  jobTitle: "AI & DevOps Engineer",
+  address: { "@type": "PostalAddress", addressLocality: "Cali", addressCountry: "CO" },
+  alumniOf: { "@type": "CollegeOrUniversity", name: "Universidad Icesi" },
+  sameAs: [PERSON.linkedin, PERSON.github],
+};
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={PERSON.name} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    {
+      alternates.map((alt) => (
+        <link rel="alternate" hreflang={alt.lang} href={new URL(alt.path, SITE_URL).href} />
+      ))
+    }
+    {
+      alternates.length > 0 && (
+        <link rel="alternate" hreflang="x-default" href={new URL(alternates.find((a) => a.lang === "en")?.path ?? "/", SITE_URL).href} />
+      )
+    }
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0e1013" media="(prefers-color-scheme: dark)" />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content={PERSON.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="480" />
+    <meta property="og:image:height" content="480" />
+    <meta property="og:locale" content={lang === "es" ? "es_CO" : "en_US"} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
+
+    <!-- Apply a saved theme before first paint to avoid a flash of the wrong theme. -->
+    <script is:inline>
+      (function () {
+        try {
+          var saved = localStorage.getItem("theme");
+          if (saved === "light" || saved === "dark") document.documentElement.dataset.theme = saved;
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

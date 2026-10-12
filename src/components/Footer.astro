@@ -1,0 +1,44 @@
+---
+import { CONTENT, type Lang } from "../content/site";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const f = CONTENT[lang].footer;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-row">
+    <p>© {year} Esteban Gaviria Zambrano</p>
+    <p class="muted">
+      {f.built}
+      <a href="https://github.com/EstebanGZam/EstebanGZam.github.io" target="_blank" rel="noopener noreferrer">{f.source}</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding-block: 2rem;
+    font-size: 0.875rem;
+  }
+
+  .footer-row {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  @media (min-width: 720px) {
+    .footer-row {
+      grid-template-columns: auto 1fr;
+      gap: 2rem;
+    }
+    .footer-row .muted {
+      text-align: right;
+    }
+  }
+</style>

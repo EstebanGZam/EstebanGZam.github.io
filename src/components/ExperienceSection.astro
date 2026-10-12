@@ -1,0 +1,29 @@
+---
+import EntryCard from "./EntryCard.astro";
+import SectionHead from "./SectionHead.astro";
+import { CONTENT, type Focus, type Lang } from "../content/site";
+
+interface Props {
+  lang: Lang;
+  focus: Focus;
+  index: number;
+}
+
+const { lang, focus, index } = Astro.props;
+const c = CONTENT[lang];
+---
+
+<section id="experience" class="section" aria-labelledby="experience-title">
+  <div class="container stack">
+    <SectionHead id="experience" index={index} title={c.ui.sections.experience} />
+    {c.experience.map((entry) => <EntryCard entry={entry} lang={lang} focus={focus} />)}
+    <article class="compact card">
+      <div class="compact-head">
+        <h3>{c.teaching.name}</h3>
+        <p class="mono muted">{c.teaching.period}</p>
+      </div>
+      <p class="compact-role">{c.teaching.role}</p>
+      <p class="muted">{c.teaching.text}</p>
+    </article>
+  </div>
+</section>

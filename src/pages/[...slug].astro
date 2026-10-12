@@ -1,0 +1,108 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import SectionHead from "../components/SectionHead.astro";
+import ExperienceSection from "../components/ExperienceSection.astro";
+import ProjectsSection from "../components/ProjectsSection.astro";
+import Skills from "../components/Skills.astro";
+import Credentials from "../components/Credentials.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
+import { CONTENT, FOCUSES, LANGS, pathFor, type Focus, type Lang } from "../content/site";
+
+export function getStaticPaths() {
+  return LANGS.flatMap((lang) =>
+    FOCUSES.map((focus) => {
+      const parts = [lang === "es" ? "es" : null, focus === "all" ? null : focus].filter(Boolean);
+      return { params: { slug: parts.length ? parts.join("/") : undefined }, props: { lang, focus } };
+    }),
+  );
+}
+
+interface Props {
+  lang: Lang;
+  focus: Focus;
+}
+
+const { lang, focus } = Astro.props;
+const c = CONTENT[lang];
+const s = c.ui.sections;
+
+// The DevOps view leads with the platform project; the other views lead with work experience.
+const projectsFirst = focus === "devops";
+---
+
+<Base
+  lang={lang}
+  title={c.meta.title[focus]}
+  description={c.meta.description[focus]}
+  path={pathFor(lang, focus)}
+  alternates={LANGS.map((l) => ({ lang: l, path: pathFor(l, focus) }))}
+>
+  <a class="skip-link" href="#main">{c.ui.skip}</a>
+  <Header lang={lang} focus={focus} />
+
+  <main id="main" tabindex="-1">
+    <Hero lang={lang} focus={focus} />
+
+    <section id="about" class="section" aria-labelledby="about-title">
+      <div class="container">
+        <SectionHead id="about" index={1} title={s.about} />
+        <div class="prose">
+          {c.about[focus].map((p) => <p>{p}</p>)}
+        </div>
+      </div>
+    </section>
+
+    {
+      projectsFirst ? (
+        <>
+          <ProjectsSection lang={lang} focus={focus} index={2} />
+          <ExperienceSection lang={lang} focus={focus} index={3} />
+        </>
+      ) : (
+        <>
+          <ExperienceSection lang={lang} focus={focus} index={2} />
+          <ProjectsSection lang={lang} focus={focus} index={3} />
+        </>
+      )
+    }
+
+    <section id="skills" class="section" aria-labelledby="skills-title">
+      <div class="container">
+        <SectionHead id="skills" index={4} title={s.skills} />
+        <Skills lang={lang} focus={focus} />
+      </div>
+    </section>
+
+    <section id="credentials" class="section" aria-labelledby="credentials-title">
+      <div class="container">
+        <SectionHead id="credentials" index={5} title={s.credentials} />
+        <Credentials lang={lang} focus={focus} />
+      </div>
+    </section>
+
+    <section id="contact" class="section" aria-labelledby="contact-title">
+      <div class="container">
+        <SectionHead id="contact" index={6} title={s.contact} />
+        <Contact lang={lang} />
+      </div>
+    </section>
+  </main>
+
+  <Footer lang={lang} />
+</Base>
+
+<style>
+  main:focus {
+    outline: none;
+  }
+
+  .prose {
+    display: grid;
+    gap: 1rem;
+    max-width: 46rem;
+    font-size: 1.0625rem;
+  }
+</style>

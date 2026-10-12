@@ -1,0 +1,33 @@
+---
+import Base from "../layouts/Base.astro";
+import { CONTENT } from "../content/site";
+
+const en = CONTENT.en.notFound;
+const es = CONTENT.es.notFound;
+---
+
+<Base lang="en" title={`${en.title} — Esteban Gaviria`} description={en.text} path="/404/" noindex>
+  <main class="container not-found">
+    <p class="mono code">404</p>
+    <h1>{en.title}</h1>
+    <p class="muted">{en.text} <a href="/">{en.home}</a></p>
+    <p class="muted" lang="es">{es.text} <a href="/es/">{es.home}</a></p>
+  </main>
+</Base>
+
+<style>
+  .not-found {
+    display: grid;
+    gap: 0.75rem;
+    align-content: center;
+    min-height: 100vh;
+  }
+
+  .code {
+    color: var(--accent);
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+</style>

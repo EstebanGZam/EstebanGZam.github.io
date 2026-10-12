@@ -1,0 +1,37 @@
+---
+import EntryCard from "./EntryCard.astro";
+import SectionHead from "./SectionHead.astro";
+import { CONTENT, byFocus, type Focus, type Lang } from "../content/site";
+
+interface Props {
+  lang: Lang;
+  focus: Focus;
+  index: number;
+}
+
+const { lang, focus, index } = Astro.props;
+const c = CONTENT[lang];
+---
+
+<section id="projects" class="section" aria-labelledby="projects-title">
+  <div class="container stack">
+    <SectionHead id="projects" index={index} title={c.ui.sections.projects} />
+    {byFocus(c.projects, focus).map((entry) => <EntryCard entry={entry} lang={lang} focus={focus} />)}
+    {
+      byFocus(c.smallProjects, focus).map((p) => (
+        <article class="compact card">
+          <div class="compact-head">
+            <h3>
+              <a href={p.href} target="_blank" rel="noopener noreferrer">
+                {p.name}
+                <span class="visually-hidden"> {c.ui.opensInNewTab}</span>
+              </a>
+            </h3>
+            <p class="mono muted">{p.period}</p>
+          </div>
+          <p class="muted">{p.text}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>

@@ -1,0 +1,223 @@
+---
+import { CONTENT, PERSON, cvHref, type Focus, type Lang, type Tag } from "../content/site";
+
+interface Props {
+  lang: Lang;
+  focus: Focus;
+}
+
+const { lang, focus } = Astro.props;
+const c = CONTENT[lang];
+const t = c.ui;
+
+// The focused view offers its own CV first; the overview offers both equally.
+const cvOrder: Tag[] = focus === "devops" ? ["devops", "ai"] : ["ai", "devops"];
+const cvs = cvOrder.map((kind, i) => ({
+  href: cvHref(kind, lang),
+  label: kind === "ai" ? t.cvAi : t.cvDevops,
+  primary: focus === "all" ? false : i === 0,
+}));
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero-grid">
+    <div class="hero-text">
+      <p class="greeting">{c.hero.greeting}</p>
+      <h1 id="hero-title">{c.hero.role[focus]}</h1>
+      <p class="lead">{c.hero.lead[focus]}</p>
+      <p class="meta">
+        <span class="badge">{c.hero.badge[focus]}</span>
+        <span class="location muted">{c.hero.location}</span>
+      </p>
+
+      <div class="actions">
+        {
+          cvs.map((cv) => (
+            <a class:list={["button", cv.primary && "button--primary"]} href={cv.href} download>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 19h16" />
+              </svg>
+              {cv.label}
+            </a>
+          ))
+        }
+      </div>
+
+      <ul class="links" role="list">
+        <li><a href={PERSON.github} target="_blank" rel="noopener noreferrer">GitHub<span class="visually-hidden"> {t.opensInNewTab}</span></a></li>
+        <li><a href={PERSON.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn<span class="visually-hidden"> {t.opensInNewTab}</span></a></li>
+        <li><a href={`mailto:${PERSON.email}`}>{PERSON.email}</a></li>
+      </ul>
+    </div>
+
+    <picture class="portrait">
+      <source type="image/webp" srcset="/images/esteban-240.webp 240w, /images/esteban-480.webp 480w" sizes="(min-width: 860px) 240px, 160px" />
+      <img
+        src="/images/esteban-480.jpg"
+        srcset="/images/esteban-240.jpg 240w, /images/esteban-480.jpg 480w"
+        sizes="(min-width: 860px) 240px, 160px"
+        width="480"
+        height="480"
+        alt={t.photoAlt}
+        fetchpriority="high"
+        decoding="async"
+      />
+    </picture>
+  </div>
+
+  <div class="container">
+    <dl class="stats">
+      {
+        c.stats[focus].map((s) => (
+          <div class="stat">
+            <dt class="visually-hidden">{s.label}</dt>
+            <dd>
+              <span class="stat-value">{s.value}</span>
+              <span class="stat-label" aria-hidden="true">{s.label}</span>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: 3rem 3.5rem;
+  }
+
+  .hero-grid {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .portrait {
+    order: -1;
+  }
+
+  .portrait img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    background: #fff;
+  }
+
+  @media (min-width: 860px) {
+    .hero {
+      padding-block: 5rem 4rem;
+    }
+    .hero-grid {
+      grid-template-columns: 1fr auto;
+      gap: 4rem;
+    }
+    .portrait {
+      order: 0;
+    }
+    .portrait img {
+      width: 240px;
+      height: 240px;
+    }
+  }
+
+  .greeting {
+    font-family: var(--font-mono);
+    font-size: 0.9375rem;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  h1 {
+    font-size: clamp(2.25rem, 1.6rem + 3vw, 3.75rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+
+  .lead {
+    margin-top: 1rem;
+    max-width: 38rem;
+    font-size: clamp(1.125rem, 1rem + 0.6vw, 1.375rem);
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    align-items: center;
+    margin-top: 1.25rem;
+    font-size: 0.9375rem;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--text);
+    font-weight: 550;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin-top: 1.25rem;
+    list-style: none;
+    font-size: 0.9375rem;
+  }
+
+  .links a {
+    overflow-wrap: anywhere;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    margin: 3rem 0 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--border);
+  }
+
+  @media (min-width: 720px) {
+    .stats {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .stat {
+    background: var(--surface);
+    padding: 1rem 1.125rem;
+  }
+
+  .stat dd {
+    margin: 0;
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.35;
+  }
+</style>

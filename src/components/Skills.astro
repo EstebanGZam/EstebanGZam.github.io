@@ -1,0 +1,48 @@
+---
+import { CONTENT, byFocus, type Focus, type Lang } from "../content/site";
+
+interface Props {
+  lang: Lang;
+  focus: Focus;
+}
+
+const { lang, focus } = Astro.props;
+const groups = byFocus(CONTENT[lang].skills, focus);
+---
+
+<div class="skills">
+  {
+    groups.map((g) => (
+      <section class="group" aria-label={g.name}>
+        <h3 class="group-name">{g.name}</h3>
+        <ul class="chip-list" role="list">
+          {g.items.map((item) => <li class="chip">{item}</li>)}
+        </ul>
+      </section>
+    ))
+  }
+</div>
+
+<style>
+  .skills {
+    display: grid;
+    gap: 1.75rem;
+  }
+
+  @media (min-width: 720px) {
+    .skills {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 2rem 2.5rem;
+    }
+  }
+
+  .group-name {
+    margin-bottom: 0.75rem;
+    font-size: 0.8125rem;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+</style>

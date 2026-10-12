@@ -1,0 +1,158 @@
+---
+import type { Flow } from "../content/site";
+
+interface Props {
+  flow: Flow;
+}
+
+const { flow } = Astro.props;
+---
+
+<figure class="flow">
+  <figcaption>
+    <span class="flow-title">{flow.title}</span>
+    <span class="flow-caption">{flow.caption}</span>
+  </figcaption>
+  {
+    flow.rows.map((row) => (
+      <div class="flow-row">
+        <span class="row-label">{row.label}</span>
+        <ol class="steps">
+          {row.steps.map((step) => (
+            <li class="step">
+              <span class="step-title">{step.title}</span>
+              {step.detail && <span class="step-detail">{step.detail}</span>}
+            </li>
+          ))}
+        </ol>
+      </div>
+    ))
+  }
+</figure>
+
+<style>
+  .flow {
+    margin: 1.5rem 0 0;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-2);
+  }
+
+  figcaption {
+    display: grid;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .flow-title {
+    font-weight: 650;
+  }
+
+  .flow-caption {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  .flow-row + .flow-row {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--border);
+  }
+
+  .row-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+  }
+
+  /* Mobile: a vertical chain with downward connectors. */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .step {
+    position: relative;
+    display: grid;
+    gap: 0.125rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+
+  .step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -1.25rem;
+    width: 0;
+    height: 1.25rem;
+    border-left: 1.5px solid var(--accent);
+  }
+
+  .step:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    left: calc(50% - 4px);
+    bottom: -1.25rem;
+    border: 4.5px solid transparent;
+    border-top-color: var(--accent);
+    border-bottom: 0;
+    z-index: 1;
+  }
+
+  .step-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .step-detail {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  /* Wide screens: one horizontal row per lane with right-pointing connectors. */
+  @media (min-width: 860px) {
+    .steps {
+      flex-direction: row;
+      gap: 1.5rem;
+    }
+
+    .step {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    .step:not(:last-child)::after {
+      left: auto;
+      right: -1.5rem;
+      top: 50%;
+      bottom: auto;
+      width: 1.5rem;
+      height: 0;
+      border-left: 0;
+      border-top: 1.5px solid var(--accent);
+    }
+
+    .step:not(:last-child)::before {
+      left: auto;
+      right: -1.5rem;
+      top: calc(50% - 3.75px);
+      bottom: auto;
+      border: 4.5px solid transparent;
+      border-left-color: var(--accent);
+      border-right: 0;
+    }
+  }
+</style>
