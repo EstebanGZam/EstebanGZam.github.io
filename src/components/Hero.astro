@@ -25,10 +25,7 @@ const cvs = cvOrder.map((kind, i) => ({
       <p class="greeting">{c.hero.greeting}</p>
       <h1 id="hero-title">{c.hero.role[focus]}</h1>
       <p class="lead">{c.hero.lead[focus]}</p>
-      <p class="meta">
-        <span class="badge">{c.hero.badge[focus]}</span>
-        <span class="location muted">{c.hero.location}</span>
-      </p>
+      <p class="location muted">{c.hero.location}</p>
 
       <div class="actions">
         {
@@ -65,21 +62,6 @@ const cvs = cvOrder.map((kind, i) => ({
     </picture>
   </div>
 
-  <div class="container">
-    <dl class="stats">
-      {
-        c.stats[focus].map((s) => (
-          <div class="stat">
-            <dt class="visually-hidden">{s.label}</dt>
-            <dd>
-              <span class="stat-value">{s.value}</span>
-              <span class="stat-label" aria-hidden="true">{s.label}</span>
-            </dd>
-          </div>
-        ))
-      }
-    </dl>
-  </div>
 </section>
 
 <style>
@@ -108,7 +90,7 @@ const cvs = cvOrder.map((kind, i) => ({
 
   @media (min-width: 860px) {
     .hero {
-      padding-block: 5rem 4rem;
+      padding-block: 5rem;
     }
     .hero-grid {
       grid-template-columns: 1fr auto;
@@ -138,27 +120,15 @@ const cvs = cvOrder.map((kind, i) => ({
 
   .lead {
     margin-top: 1rem;
-    max-width: 38rem;
+    max-width: 44rem;
     font-size: clamp(1.125rem, 1rem + 0.6vw, 1.375rem);
     color: var(--text-muted);
     line-height: 1.5;
   }
 
-  .meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 1rem;
-    align-items: center;
+  .location {
     margin-top: 1.25rem;
     font-size: 0.9375rem;
-  }
-
-  .badge {
-    padding: 0.25rem 0.75rem;
-    border-radius: 999px;
-    background: var(--accent-soft);
-    color: var(--text);
-    font-weight: 550;
   }
 
   .actions {
@@ -179,45 +149,5 @@ const cvs = cvOrder.map((kind, i) => ({
 
   .links a {
     overflow-wrap: anywhere;
-  }
-
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1px;
-    margin: 3rem 0 0;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    background: var(--border);
-  }
-
-  @media (min-width: 720px) {
-    .stats {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-  }
-
-  .stat {
-    background: var(--surface);
-    padding: 1rem 1.125rem;
-  }
-
-  .stat dd {
-    margin: 0;
-    display: grid;
-    gap: 0.25rem;
-  }
-
-  .stat-value {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-
-  .stat-label {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    line-height: 1.35;
   }
 </style>

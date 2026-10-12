@@ -57,9 +57,9 @@ export interface Entry {
   flow?: Flow;
 }
 
-export interface Stat {
-  value: string;
+export interface Fact {
   label: string;
+  value: string;
 }
 
 export interface SkillGroup {
@@ -91,10 +91,9 @@ export interface Content {
     role: Record<Focus, string>;
     lead: Record<Focus, string>;
     location: string;
-    badge: Record<Focus, string>;
   };
-  stats: Record<Focus, Stat[]>;
   about: Record<Focus, string[]>;
+  facts: Fact[];
   experience: Entry[];
   teaching: { name: string; role: string; period: string; text: string };
   projects: Entry[];
@@ -173,75 +172,55 @@ const en: Content = {
       devops: "I build Kubernetes platforms with Terraform and GitOps, and automate them with AI agents.",
     },
     location: "Cali, Colombia · Open to remote",
-    badge: {
-      all: "AI Software Developer at Brain AIX",
-      ai: "AI Software Developer at Brain AIX",
-      devops: "On the CNCF Kubestronaut path · CKA in January 2027",
-    },
-  },
-  stats: {
-    all: [
-      { value: "1 year", label: "shipping a production AI SaaS" },
-      { value: "< 3 s", label: "end-to-end voice latency" },
-      { value: "34", label: "ArgoCD applications healthy" },
-      { value: "2 clouds", label: "AWS primary, Azure recovery" },
-    ],
-    ai: [
-      { value: "−40%", label: "unsupported answers with RAG" },
-      { value: "< 3 s", label: "end-to-end voice latency" },
-      { value: "10+", label: "languages in real-time voice" },
-      { value: "9+", label: "services shipped to production" },
-    ],
-    devops: [
-      { value: "3", label: "dedicated EKS clusters (full profile)" },
-      { value: "34", label: "ArgoCD applications healthy" },
-      { value: "USD 617", label: "per month, priced with Infracost" },
-      { value: "2 clouds", label: "AWS primary, Azure recovery" },
-    ],
   },
   about: {
     all: [
-      "I'm a software engineer with one year of professional experience building and shipping a multimodal conversational AI platform: real-time agents with cloned voices and avatars. I work on both sides of that product: the AI that makes the conversation feel natural, and the delivery that keeps it running.",
-      "Outside work, I led the infrastructure of MicroTodoSuite, a five-service platform my team of three migrated to Amazon EKS with Terraform, GitOps and an Azure recovery domain. I'm in the final semester of a double degree in Telematics and Systems Engineering at Universidad Icesi.",
+      "I'm a software engineer from Cali, Colombia. I work at Brain AIX, where we build conversational AI agents that talk with a cloned voice and an avatar, and I enjoy both sides of that work: the AI that makes a conversation feel natural, and the infrastructure that keeps it running.",
+      "Outside work I lead the infrastructure of MicroTodoSuite, a team project where we take a microservices platform to Kubernetes on AWS. I'm finishing a double degree in Telematics and Systems Engineering at Universidad Icesi, and I compete in judo.",
     ],
     ai: [
-      "I'm an AI engineer with one year of professional experience building and shipping a multimodal conversational AI platform: real-time agents with cloned voices and avatars. I designed its LLM orchestration layer, built its RAG pipeline and engineered the low-latency voice pipeline behind every conversation.",
-      "I also know how to take AI to production: I containerized the platform's services and built its CI/CD. I'm in the final semester of a double degree in Telematics and Systems Engineering at Universidad Icesi.",
+      "I'm an AI engineer from Cali, Colombia. At Brain AIX I build conversational AI agents that talk with a cloned voice and an avatar: the way they use language models, look up each user's documents and answer by voice in real time.",
+      "I also take care of getting that work to production, from containers to CI/CD. I'm finishing a double degree in Telematics and Systems Engineering at Universidad Icesi, and I compete in judo.",
     ],
     devops: [
-      "I'm a DevOps engineer with one year of professional experience automating the delivery and operation of a production AI SaaS platform, and the infrastructure lead of MicroTodoSuite, a five-service platform migrated to Amazon EKS with Terraform, ArgoCD and an Azure recovery domain.",
-      "I build AI agents and MCP tooling that author and review infrastructure as code. I'm on the CNCF Kubestronaut path and in the final semester of a double degree in Telematics and Systems Engineering at Universidad Icesi.",
+      "I'm a DevOps engineer from Cali, Colombia. I like building platforms where every deployment is automated, reviewed and easy to roll back. I lead the infrastructure of MicroTodoSuite, a team project where we take a microservices platform to Kubernetes on AWS, and I run the delivery of a production AI product at Brain AIX.",
+      "I'm preparing the CNCF Kubestronaut certifications, finishing a double degree in Telematics and Systems Engineering at Universidad Icesi, and I compete in judo.",
     ],
   },
+  facts: [
+    { label: "Currently", value: "AI Software Developer at Brain AIX" },
+    { label: "Studying", value: "Telematics & Systems Engineering, Universidad Icesi" },
+    { label: "Languages", value: "Spanish (native), English (C1)" },
+  ],
   experience: [
     {
       name: "Brain AIX",
       role: "AI Software Developer",
       period: "September 2025 – Present",
       location: "Remote",
-      summary: "Multimodal conversational AI SaaS platform: real-time agents with cloned voices and avatars, marketed as digital humans.",
+      summary: "Conversational AI platform where agents talk in real time with a cloned voice and an avatar.",
       tags: ["ai", "devops"],
       links: [{ label: "brainaix.online", href: "https://brainaix.online/" }],
       bullets: [
         {
           tags: ["ai"],
-          text: "Designed and implemented the LLM orchestration layer (context and conversational memory, tool use, response streaming and per-session cost control) across OpenAI, Anthropic, Gemini and open-source models, with LangChain/LangGraph, LlamaIndex and native SDKs.",
+          text: "Built the LLM orchestration layer: memory, tool use and streaming across OpenAI, Anthropic, Gemini and open-source models.",
         },
         {
           tags: ["ai"],
-          text: "Built the end-to-end RAG pipeline (PDF/Word ingestion, chunking, embeddings and vector search) and fine-tuned the embedding model on domain data, cutting unsupported answers by 40% on an in-house evaluation set.",
+          text: "Built the RAG pipeline that grounds each agent in its user's own documents, with a fine-tuned embedding model.",
         },
         {
           tags: ["ai"],
-          text: "Engineered the low-latency voice pipeline (STT → LLM → TTS with voice cloning) on Deepgram, Whisper, ElevenLabs and Azure/Google Speech: natural conversations in 10+ languages at under 3 s end-to-end. Also configured a real-time speech-to-speech agent on Alibaba Cloud (Qwen-Omni, Qwen-TTS).",
+          text: "Built the real-time, multilingual voice pipeline, from speech recognition to voice-cloned speech.",
         },
         {
           tags: ["devops"],
-          text: "Containerized 9+ FastAPI and NestJS microservices and built GitHub Actions CI/CD from scratch, replacing manual deployments with automated, zero-downtime releases to AWS EC2 with Docker Compose. I operate the production infrastructure on AWS.",
+          text: "Containerized the platform's services and built the CI/CD that releases them to AWS without downtime.",
         },
         {
           tags: ["ai", "devops"],
-          text: "Co-designed the microservices architecture (authentication, multi-tenancy, third-party integrations) and introduced agent-assisted development to the team with custom skills and MCP servers that automate scaffolding, testing and documentation.",
+          text: "Brought agent-assisted development to the team, with our own skills and MCP servers.",
         },
       ],
       flow: {
@@ -275,14 +254,14 @@ const en: Content = {
     name: "Universidad Icesi",
     role: "Teaching Assistant · Mathematics & Computational Thinking",
     period: "2023 – 2026",
-    text: "Supported engineering students in Applied Math I–III and Multivariable Calculus, and coached 25+ students in programming fundamentals.",
+    text: "Supported engineering students in applied mathematics, calculus and programming fundamentals.",
   },
   projects: [
     {
       name: "MicroTodoSuite",
       role: "Infrastructure Lead · team of 3",
       period: "April 2025 – Present",
-      summary: "A five-service polyglot platform (Go, Java, Node.js, Python, Vue) that evolved from Azure Container Apps (2025) to Amazon EKS with an Azure recovery domain (2026), built as an independent team project.",
+      summary: "A microservices platform my team of three moved from Azure to Kubernetes on AWS, with dev, staging and production environments.",
       tags: ["devops", "ai"],
       links: [
         { label: "Case study", href: "https://microtodosuite.github.io/microservice-app-showcase/" },
@@ -291,27 +270,19 @@ const en: Content = {
       bullets: [
         {
           tags: ["devops"],
-          text: "Led the migration to AWS: wrote the Terraform for VPCs, EKS, IAM/IRSA, ECR, Secrets Manager, Route 53 and a Transit Gateway egress hub, plus versioned AWS and Azure module libraries with Terraform tests.",
+          text: "Led the migration to Amazon EKS, with all the infrastructure written in Terraform.",
         },
         {
           tags: ["devops"],
-          text: "Designed two architecture profiles: economical (one EKS cluster, dev/staging/prod as isolated namespaces) and full (three EKS clusters with Istio mTLS, USD 617.20/month for the AWS foundations, verified with Infracost), plus an AKS warm-standby recovery domain on Azure with tested failover.",
+          text: "Designed an economical and a full architecture, plus a recovery environment on Azure with tested failover.",
         },
         {
           tags: ["devops"],
-          text: "Authored the organization's reusable GitHub Actions workflows: build once, Trivy scan, Syft SBOM, Cosign keyless signing, promotion by immutable digest through GitOps pull requests, OIDC-only cloud access and IaC gates.",
-        },
-        {
-          tags: ["devops"],
-          text: "Co-built the GitOps repository (ArgoCD, Kustomize) with 34 healthy applications: every deploy is a commit and every rollback a git revert, with Kyverno signature checks at admission and Argo Rollouts canaries.",
-        },
-        {
-          tags: ["devops"],
-          text: "Built a saved-plan-only environment lifecycle that shuts idle environments down to cut cloud spend and rebuilds them without losing state, images or secrets.",
+          text: "Built the delivery path: shared CI that scans and signs images, and GitOps deployments with ArgoCD.",
         },
         {
           tags: ["ai", "devops"],
-          text: "Built the project's AI agent layer for infrastructure: Claude Code and Codex skills that author, review and audit Terraform, pinned documentation MCP servers, and spec-driven development with Spec Kit.",
+          text: "Built AI agents and skills that write, review and audit the project's infrastructure code.",
         },
       ],
       flow: {
@@ -345,7 +316,7 @@ const en: Content = {
     {
       name: "EcommerceCoZam",
       period: "2025",
-      text: "Cloud-native multi-cloud e-commerce on AKS and GKE with Terraform and GitHub Actions, delivered in 3 weeks.",
+      text: "Multi-cloud e-commerce on Azure and Google Cloud Kubernetes, with Terraform and GitHub Actions.",
       tags: ["devops"],
       href: "https://github.com/EcommerceCoZam",
     },
@@ -402,7 +373,6 @@ const en: Content = {
     otherTitle: "Beyond the code",
     other: [
       { label: "Community", text: "CNCF Colombia member since 2025; Kubernetes Community Days Bogotá 2025 attendee." },
-      { label: "Languages", text: "Spanish (native), English (C1)." },
       { label: "Judo", text: "Bronze medal (3rd place), −90 kg, ASCUN 2026 National University Games, representing Universidad Icesi." },
     ],
   },
@@ -478,75 +448,55 @@ const es: Content = {
       devops: "Construyo plataformas Kubernetes con Terraform y GitOps, y las automatizo con agentes de IA.",
     },
     location: "Cali, Colombia · Disponible para trabajo remoto",
-    badge: {
-      all: "AI Software Developer en Brain AIX",
-      ai: "AI Software Developer en Brain AIX",
-      devops: "En ruta hacia CNCF Kubestronaut · CKA en enero de 2027",
-    },
-  },
-  stats: {
-    all: [
-      { value: "1 año", label: "llevando a producción un SaaS de IA" },
-      { value: "< 3 s", label: "de latencia de voz extremo a extremo" },
-      { value: "34", label: "aplicaciones saludables en ArgoCD" },
-      { value: "2 nubes", label: "AWS principal, Azure de recuperación" },
-    ],
-    ai: [
-      { value: "−40%", label: "respuestas sin sustento gracias al RAG" },
-      { value: "< 3 s", label: "de latencia de voz extremo a extremo" },
-      { value: "10+", label: "idiomas en voz en tiempo real" },
-      { value: "9+", label: "servicios llevados a producción" },
-    ],
-    devops: [
-      { value: "3", label: "clústeres EKS dedicados (perfil completo)" },
-      { value: "34", label: "aplicaciones saludables en ArgoCD" },
-      { value: "USD 617", label: "al mes, calculado con Infracost" },
-      { value: "2 nubes", label: "AWS principal, Azure de recuperación" },
-    ],
   },
   about: {
     all: [
-      "Soy ingeniero de software con un año de experiencia profesional construyendo y llevando a producción una plataforma de IA conversacional multimodal: agentes en tiempo real con voz clonada y avatar. Trabajo en los dos lados del producto: la IA que hace que la conversación se sienta natural y la entrega que lo mantiene funcionando.",
-      "Fuera del trabajo, lideré la infraestructura de MicroTodoSuite, una plataforma de cinco servicios que mi equipo de tres personas migró a Amazon EKS con Terraform, GitOps y un dominio de recuperación en Azure. Curso el último semestre del doble programa de Ingeniería Telemática e Ingeniería de Sistemas en la Universidad Icesi.",
+      "Soy ingeniero de software de Cali, Colombia. Trabajo en Brain AIX, donde construimos agentes de IA conversacional que hablan con voz clonada y avatar, y disfruto los dos lados de ese trabajo: la IA que hace que una conversación se sienta natural y la infraestructura que la mantiene funcionando.",
+      "Fuera del trabajo lidero la infraestructura de MicroTodoSuite, un proyecto en equipo en el que llevamos una plataforma de microservicios a Kubernetes en AWS. Estoy terminando el doble programa de Ingeniería Telemática e Ingeniería de Sistemas en la Universidad Icesi y compito en judo.",
     ],
     ai: [
-      "Soy AI Engineer con un año de experiencia profesional construyendo y llevando a producción una plataforma de IA conversacional multimodal: agentes en tiempo real con voz clonada y avatar. Diseñé su capa de orquestación de LLMs, construí su pipeline de RAG e implementé el pipeline de voz de baja latencia detrás de cada conversación.",
-      "También sé llevar la IA a producción: contenericé los servicios de la plataforma y construí su CI/CD. Curso el último semestre del doble programa de Ingeniería Telemática e Ingeniería de Sistemas en la Universidad Icesi.",
+      "Soy AI Engineer de Cali, Colombia. En Brain AIX construyo agentes de IA conversacional que hablan con voz clonada y avatar: cómo usan los modelos de lenguaje, cómo consultan los documentos de cada usuario y cómo responden por voz en tiempo real.",
+      "También me encargo de llevar ese trabajo a producción, desde los contenedores hasta el CI/CD. Estoy terminando el doble programa de Ingeniería Telemática e Ingeniería de Sistemas en la Universidad Icesi y compito en judo.",
     ],
     devops: [
-      "Soy DevOps Engineer con un año de experiencia profesional automatizando la entrega y operación de una plataforma SaaS de IA en producción, y líder de infraestructura de MicroTodoSuite, una plataforma de cinco servicios migrada a Amazon EKS con Terraform, ArgoCD y un dominio de recuperación en Azure.",
-      "Construyo agentes de IA y herramientas MCP que escriben y revisan infraestructura como código. Estoy en ruta hacia CNCF Kubestronaut y curso el último semestre del doble programa de Ingeniería Telemática e Ingeniería de Sistemas en la Universidad Icesi.",
+      "Soy DevOps Engineer de Cali, Colombia. Me gusta construir plataformas donde cada despliegue es automático, revisado y fácil de revertir. Lidero la infraestructura de MicroTodoSuite, un proyecto en equipo en el que llevamos una plataforma de microservicios a Kubernetes en AWS, y me encargo de la entrega de un producto de IA en producción en Brain AIX.",
+      "Me estoy preparando para las certificaciones CNCF Kubestronaut, estoy terminando el doble programa de Ingeniería Telemática e Ingeniería de Sistemas en la Universidad Icesi y compito en judo.",
     ],
   },
+  facts: [
+    { label: "Actualmente", value: "AI Software Developer en Brain AIX" },
+    { label: "Estudios", value: "Ingeniería Telemática y de Sistemas, Universidad Icesi" },
+    { label: "Idiomas", value: "Español (nativo), inglés (C1)" },
+  ],
   experience: [
     {
       name: "Brain AIX",
       role: "AI Software Developer",
       period: "Septiembre 2025 – Presente",
       location: "Remoto",
-      summary: "Plataforma SaaS de IA conversacional multimodal: agentes en tiempo real con voz clonada y avatar, conocidos como humanos digitales.",
+      summary: "Plataforma de IA conversacional donde los agentes hablan en tiempo real con voz clonada y avatar.",
       tags: ["ai", "devops"],
       links: [{ label: "brainaix.online", href: "https://brainaix.online/" }],
       bullets: [
         {
           tags: ["ai"],
-          text: "Diseñé e implementé la capa de orquestación de LLMs (contexto y memoria conversacional, uso de herramientas, respuesta en streaming y control de costo por sesión) sobre OpenAI, Anthropic, Gemini y modelos open-source, con LangChain/LangGraph, LlamaIndex y SDKs nativos.",
+          text: "Construí la capa de orquestación de LLMs: memoria, uso de herramientas y streaming sobre OpenAI, Anthropic, Gemini y modelos open-source.",
         },
         {
           tags: ["ai"],
-          text: "Construí el pipeline completo de RAG (ingesta de PDF/Word, segmentación, embeddings y búsqueda vectorial) e hice fine-tuning del modelo de embeddings con datos del dominio, reduciendo en 40% las respuestas sin sustento sobre un set de evaluación propio.",
+          text: "Construí el pipeline de RAG que basa cada agente en los documentos de su usuario, con un modelo de embeddings ajustado.",
         },
         {
           tags: ["ai"],
-          text: "Implementé el pipeline de voz de baja latencia (STT → LLM → TTS con clonación de voz) sobre Deepgram, Whisper, ElevenLabs y Azure/Google Speech: conversaciones naturales en más de 10 idiomas con menos de 3 s extremo a extremo. También configuré un agente de voz a voz en tiempo real sobre Alibaba Cloud (Qwen-Omni, Qwen-TTS).",
+          text: "Construí el pipeline de voz multilingüe en tiempo real, del reconocimiento de voz a la voz clonada.",
         },
         {
           tags: ["devops"],
-          text: "Contenericé más de 9 microservicios en FastAPI y NestJS y construí desde cero el CI/CD en GitHub Actions, sustituyendo los despliegues manuales por releases automatizados y sin interrupción en AWS EC2 con Docker Compose. Opero la infraestructura de producción en AWS.",
+          text: "Contenericé los servicios de la plataforma y construí el CI/CD que los publica en AWS sin interrupciones.",
         },
         {
           tags: ["ai", "devops"],
-          text: "Co-diseñé la arquitectura de microservicios (autenticación, multi-tenancy, integraciones con terceros) e introduje en el equipo el desarrollo asistido por agentes con skills y servidores MCP propios que automatizan scaffolding, pruebas y documentación.",
+          text: "Introduje en el equipo el desarrollo asistido por agentes, con skills y servidores MCP propios.",
         },
       ],
       flow: {
@@ -580,14 +530,14 @@ const es: Content = {
     name: "Universidad Icesi",
     role: "Monitor Académico · Matemáticas y Pensamiento Computacional",
     period: "2023 – 2026",
-    text: "Acompañé a estudiantes de ingeniería en Matemáticas Aplicadas I–III y Cálculo Multivariable, y formé a más de 25 estudiantes en fundamentos de programación.",
+    text: "Acompañé a estudiantes de ingeniería en matemáticas aplicadas, cálculo y fundamentos de programación.",
   },
   projects: [
     {
       name: "MicroTodoSuite",
       role: "Líder de Infraestructura · equipo de 3",
       period: "Abril 2025 – Presente",
-      summary: "Plataforma políglota de cinco servicios (Go, Java, Node.js, Python, Vue) que evolucionó de Azure Container Apps (2025) a Amazon EKS con un dominio de recuperación en Azure (2026), desarrollada como proyecto independiente del equipo.",
+      summary: "Plataforma de microservicios que mi equipo de tres personas migró de Azure a Kubernetes en AWS, con ambientes de dev, staging y producción.",
       tags: ["devops", "ai"],
       links: [
         { label: "Caso de estudio", href: "https://microtodosuite.github.io/microservice-app-showcase/" },
@@ -596,27 +546,19 @@ const es: Content = {
       bullets: [
         {
           tags: ["devops"],
-          text: "Lideré la migración a AWS: escribí el Terraform de VPCs, EKS, IAM/IRSA, ECR, Secrets Manager, Route 53 y un hub de egreso con Transit Gateway, más librerías versionadas de módulos AWS y Azure con pruebas de Terraform.",
+          text: "Lideré la migración a Amazon EKS, con toda la infraestructura escrita en Terraform.",
         },
         {
           tags: ["devops"],
-          text: "Diseñé dos perfiles de arquitectura: económico (un clúster EKS, dev/staging/prod como namespaces aislados) y completo (tres clústeres EKS con Istio mTLS, USD 617,20/mes para los cimientos en AWS según Infracost), más un dominio de recuperación en Azure con AKS en warm standby y failover probado.",
+          text: "Diseñé una arquitectura económica y una completa, más un ambiente de recuperación en Azure con failover probado.",
         },
         {
           tags: ["devops"],
-          text: "Escribí los workflows reutilizables de GitHub Actions de la organización: build único, escaneo Trivy, SBOM con Syft, firma keyless con Cosign, promoción por digest inmutable mediante PRs de GitOps, acceso a la nube solo con OIDC y controles de IaC.",
-        },
-        {
-          tags: ["devops"],
-          text: "Co-construí el repositorio GitOps (ArgoCD, Kustomize) con 34 aplicaciones saludables: cada despliegue es un commit y cada rollback un git revert, con verificación de firmas en Kyverno y canaries con Argo Rollouts.",
-        },
-        {
-          tags: ["devops"],
-          text: "Construí un ciclo de vida de ambientes basado solo en planes guardados que apaga los ambientes inactivos para reducir costos y los reconstruye sin perder estado, imágenes ni secretos.",
+          text: "Construí el camino de entrega: CI compartido que escanea y firma las imágenes, y despliegues GitOps con ArgoCD.",
         },
         {
           tags: ["ai", "devops"],
-          text: "Construí la capa de agentes de IA para infraestructura: skills de Claude Code y Codex que escriben, revisan y auditan Terraform, servidores MCP de documentación y desarrollo guiado por especificaciones con Spec Kit.",
+          text: "Construí agentes y skills de IA que escriben, revisan y auditan el código de infraestructura del proyecto.",
         },
       ],
       flow: {
@@ -650,7 +592,7 @@ const es: Content = {
     {
       name: "EcommerceCoZam",
       period: "2025",
-      text: "E-commerce cloud-native multicloud en AKS y GKE con Terraform y GitHub Actions, entregado en 3 semanas.",
+      text: "E-commerce multicloud sobre Kubernetes en Azure y Google Cloud, con Terraform y GitHub Actions.",
       tags: ["devops"],
       href: "https://github.com/EcommerceCoZam",
     },
@@ -707,7 +649,6 @@ const es: Content = {
     otherTitle: "Más allá del código",
     other: [
       { label: "Comunidad", text: "Miembro de CNCF Colombia desde 2025; asistente a Kubernetes Community Days Bogotá 2025." },
-      { label: "Idiomas", text: "Español (nativo), inglés (C1)." },
       { label: "Judo", text: "Medalla de bronce (tercer lugar), −90 kg, Juegos Universitarios Nacionales ASCUN 2026, en representación de la Universidad Icesi." },
     ],
   },

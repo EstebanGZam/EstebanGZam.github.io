@@ -17,7 +17,7 @@
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
   --radius: 12px;
   --gutter: 16px;
-  --max: 68rem;
+  --max: 80rem;
 }
 
 @media (prefers-color-scheme: dark) {

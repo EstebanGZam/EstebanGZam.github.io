@@ -12,7 +12,8 @@ interface Props {
 const { entry, lang, focus, headingLevel = "h3" } = Astro.props;
 const t = CONTENT[lang].ui;
 const Heading = headingLevel;
-const bullets = byFocus(entry.bullets, focus);
+// Keep each card short: the three points that matter most for this view. The CV has the rest.
+const bullets = byFocus(entry.bullets, focus).slice(0, 3);
 ---
 
 <article class="entry card">
@@ -87,7 +88,6 @@ const bullets = byFocus(entry.bullets, focus);
 
   .entry-summary {
     margin-top: 0.75rem;
-    max-width: 50rem;
   }
 
   .entry-bullets {
@@ -95,7 +95,6 @@ const bullets = byFocus(entry.bullets, focus);
     gap: 0.625rem;
     margin-top: 1rem;
     padding-left: 1.125rem;
-    max-width: 52rem;
   }
 
   .entry-bullets li::marker {

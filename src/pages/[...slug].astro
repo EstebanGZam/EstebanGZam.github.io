@@ -49,8 +49,20 @@ const projectsFirst = focus === "devops";
     <section id="about" class="section" aria-labelledby="about-title">
       <div class="container">
         <SectionHead id="about" index={1} title={s.about} />
-        <div class="prose">
-          {c.about[focus].map((p) => <p>{p}</p>)}
+        <div class="about-grid">
+          <div class="prose">
+            {c.about[focus].map((p) => <p>{p}</p>)}
+          </div>
+          <dl class="facts card">
+            {
+              c.facts.map((f) => (
+                <div class="fact">
+                  <dt>{f.label}</dt>
+                  <dd>{f.value}</dd>
+                </div>
+              ))
+            }
+          </dl>
         </div>
       </div>
     </section>
@@ -99,10 +111,42 @@ const projectsFirst = focus === "devops";
     outline: none;
   }
 
+  .about-grid {
+    display: grid;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  @media (min-width: 960px) {
+    .about-grid {
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+      gap: 4rem;
+    }
+  }
+
   .prose {
     display: grid;
     gap: 1rem;
-    max-width: 46rem;
     font-size: 1.0625rem;
+  }
+
+  .facts {
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .fact dt {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+  }
+
+  .fact dd {
+    margin: 0.125rem 0 0;
+    font-weight: 550;
   }
 </style>

@@ -29,6 +29,20 @@ const sections = [
       <span class="brand-name">Esteban Gaviria</span>
     </a>
 
+    <nav class="focus-nav" aria-label={t.focusNav}>
+      <ul>
+        {
+          FOCUSES.map((f) => (
+            <li>
+              <a href={pathFor(lang, f)} aria-current={f === focus ? "page" : undefined}>
+                {t.focus[f]}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
     <nav class="section-nav" aria-label={t.primaryNav}>
       <ul>
         {sections.map((s) => <li><a href={`#${s.id}`}>{s.label}</a></li>)}
@@ -55,22 +69,6 @@ const sections = [
         </svg>
       </button>
     </div>
-  </div>
-
-  <div class="container">
-    <nav class="focus-nav" aria-label={t.focusNav}>
-      <ul>
-        {
-          FOCUSES.map((f) => (
-            <li>
-              <a href={pathFor(lang, f)} aria-current={f === focus ? "page" : undefined}>
-                {t.focus[f]}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
   </div>
 </header>
 
@@ -113,8 +111,14 @@ const sections = [
   .header-row {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    min-height: 3.5rem;
+    gap: 0.75rem;
+    min-height: 4rem;
+  }
+
+  @media (min-width: 720px) {
+    .header-row {
+      gap: 1.5rem;
+    }
   }
 
   .brand {
@@ -140,7 +144,14 @@ const sections = [
   }
 
   .brand-name {
+    display: none;
     white-space: nowrap;
+  }
+
+  @media (min-width: 600px) {
+    .brand-name {
+      display: inline;
+    }
   }
 
   .section-nav {
@@ -170,12 +181,12 @@ const sections = [
     margin-left: auto;
   }
 
-  @media (min-width: 900px) {
+  @media (min-width: 1120px) {
     .section-nav {
       display: block;
     }
     .header-tools {
-      margin-left: 1rem;
+      margin-left: 0;
     }
   }
 
@@ -226,14 +237,10 @@ const sections = [
     }
   }
 
-  .focus-nav {
-    padding-bottom: 0.625rem;
-  }
-
   .focus-nav ul {
-    display: inline-flex;
-    gap: 0.25rem;
-    padding: 0.25rem;
+    display: flex;
+    gap: 0.125rem;
+    padding: 0.1875rem;
     list-style: none;
     border: 1px solid var(--border);
     border-radius: 999px;
@@ -242,12 +249,32 @@ const sections = [
 
   .focus-nav a {
     display: block;
-    padding: 0.3125rem 0.875rem;
+    padding: 0.3125rem 0.625rem;
     border-radius: 999px;
     color: var(--text-muted);
     text-decoration: none;
     font-size: 0.875rem;
     font-weight: 600;
+  }
+
+  @media (min-width: 720px) {
+    .focus-nav a {
+      padding-inline: 0.875rem;
+    }
+  }
+
+  /* Smallest phones: the hero already shows the name, so the header keeps only the controls. */
+  @media (max-width: 399px) {
+    .header-row {
+      gap: 0.5rem;
+    }
+    .brand {
+      display: none;
+    }
+    .focus-nav a {
+      padding-inline: 0.5rem;
+      font-size: 0.8125rem;
+    }
   }
 
   .focus-nav a:hover {

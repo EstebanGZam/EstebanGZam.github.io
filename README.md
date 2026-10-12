@@ -13,8 +13,9 @@ One site, one content source, three focus views in two languages:
 | AI focus | `/ai/` | `/es/ai/` |
 | DevOps focus | `/devops/` | `/es/devops/` |
 
-A focus view reorders and emphasizes the same content: hero line, metrics,
-section order, bullet order, skill groups, and which CV is offered first.
+A focus view reorders and emphasizes the same content: hero line, about text,
+section order, which three points each entry shows, skill groups, and which CV
+is offered first.
 
 ## Stack
 
