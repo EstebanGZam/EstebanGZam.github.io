@@ -314,6 +314,27 @@ const en: Content = {
   ],
   smallProjects: [
     {
+      name: "Swarm LLM Orchestrator",
+      period: "2026",
+      text: "A queen–worker orchestrator for LLM agent swarms that runs on any model and domain, and a study of when a swarm pays off. Finding: a stronger single model beat every swarm, and the coordinator was the part worth upgrading. Course research with Julián Mendoza.",
+      tags: ["ai"],
+      href: "https://github.com/EstebanGZam/swarm-llm-orchestrator",
+    },
+    {
+      name: "Sezzle Support Agent",
+      period: "2026",
+      text: "An LLM customer-support agent that answers from policy, looks up the caller's own orders through a read-only tool and escalates what only a human should handle. Code enforces authorization and validates every answer, with an evaluation harness to measure each change.",
+      tags: ["ai"],
+      href: "https://github.com/EstebanGZam/sezzle-support-agent",
+    },
+    {
+      name: "Fruit Quality Classification",
+      period: "2026",
+      text: "A computer-vision model that grades a fruit's quality and size from a single photo, combining classical models with a fine-tuned CNN. Team project following CRISP-DM.",
+      tags: ["ai"],
+      href: "https://github.com/EstebanGZam/fruit-quality-classification-apo3",
+    },
+    {
       name: "EcommerceCoZam",
       period: "2025",
       text: "Multi-cloud e-commerce on Azure and Google Cloud Kubernetes, with Terraform and GitHub Actions.",
@@ -589,6 +610,27 @@ const es: Content = {
     },
   ],
   smallProjects: [
+    {
+      name: "Swarm LLM Orchestrator",
+      period: "2026",
+      text: "Un orquestador reina–obreras para enjambres de agentes LLM que funciona con cualquier modelo y dominio, y un estudio de cuándo vale la pena un enjambre. Hallazgo: un modelo individual más fuerte superó a todos los enjambres, y el coordinador fue la pieza que valía la pena mejorar. Investigación de curso con Julián Mendoza.",
+      tags: ["ai"],
+      href: "https://github.com/EstebanGZam/swarm-llm-orchestrator",
+    },
+    {
+      name: "Sezzle Support Agent",
+      period: "2026",
+      text: "Un agente de soporte con LLM que responde según las políticas, consulta los pedidos del propio usuario con una herramienta de solo lectura y escala lo que solo una persona debe atender. El código controla la autorización y valida cada respuesta, con un sistema de evaluación para medir cada cambio.",
+      tags: ["ai"],
+      href: "https://github.com/EstebanGZam/sezzle-support-agent",
+    },
+    {
+      name: "Fruit Quality Classification",
+      period: "2026",
+      text: "Un modelo de visión por computador que califica la calidad y el tamaño de una fruta a partir de una sola foto, combinando modelos clásicos con una CNN ajustada. Proyecto en equipo siguiendo CRISP-DM.",
+      tags: ["ai"],
+      href: "https://github.com/EstebanGZam/fruit-quality-classification-apo3",
+    },
     {
       name: "EcommerceCoZam",
       period: "2025",
