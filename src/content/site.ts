@@ -97,7 +97,7 @@ export interface Content {
   experience: Entry[];
   teaching: { name: string; role: string; period: string; text: string };
   projects: Entry[];
-  smallProjects: { name: string; period: string; text: string; tags: Tag[]; href: string }[];
+  smallProjects: { name: string; period: string; text: string; tags: Tag[]; href?: string }[];
   skills: SkillGroup[];
   credentials: {
     educationTitle: string;
@@ -282,7 +282,7 @@ const en: Content = {
         },
         {
           tags: ["ai", "devops"],
-          text: "Built AI agents and skills that write, review and audit the project's infrastructure code.",
+          text: "Designed the team's agent layer: Spec Kit specs, shared agent rules and MCP servers, and skills that write, review and audit the Terraform. Agents open pull requests but never approve them.",
         },
       ],
       flow: {
@@ -313,6 +313,32 @@ const en: Content = {
     },
   ],
   smallProjects: [
+    {
+      name: "MaiYop",
+      period: "2026",
+      text: "An AI career copilot that matches students to job vacancies and tailors their CV, now in a paid pilot. I wrote nearly all of it: an LLM gateway that validates every answer and logs its cost, vector search with LLM re-ranking, and CVs where every claim cites a real fact from the profile, so the model can't invent experience.",
+      tags: ["ai"],
+    },
+    {
+      name: "Docket",
+      period: "2026",
+      text: "A task platform for a law firm: five microservices on Amazon EKS with Terraform and Argo CD. I built the team's AI workspace: the rules every person and agent follows (AGENTS.md), a spec → plan → tasks → implement flow, and shared MCP servers and skills.",
+      tags: ["ai", "devops"],
+      href: "https://github.com/sintratel-docket-platform",
+    },
+    {
+      name: "Aroma Pacífico",
+      period: "2026",
+      text: "The architecture of a coffee-traceability pilot for Cauca, Huila and Tolima on AWS, with drone missions and offline operation. I led it and ran it as a multi-agent team: shared rules and skills in every repository, agents that implement on branches, and a reviewer agent on a different AI provider.",
+      tags: ["ai", "devops"],
+      href: "https://aroma-pacifico.github.io/aroma-pacifico-web/",
+    },
+    {
+      name: "CEM AI Admission Copilot",
+      period: "2026",
+      text: "A copilot that listens to emergency-line calls in real time and suggests triage, for a human agent to confirm. Team project for Coomeva; I added real phone calls through Twilio and a fallback model for when the LLM hits its rate limit.",
+      tags: ["ai"],
+    },
     {
       name: "Swarm LLM Orchestrator",
       period: "2026",
@@ -579,7 +605,7 @@ const es: Content = {
         },
         {
           tags: ["ai", "devops"],
-          text: "Construí agentes y skills de IA que escriben, revisan y auditan el código de infraestructura del proyecto.",
+          text: "Diseñé la capa de agentes del equipo: especificaciones con Spec Kit, reglas de agentes y servidores MCP compartidos, y skills que escriben, revisan y auditan el Terraform. Los agentes abren pull requests, pero nunca los aprueban.",
         },
       ],
       flow: {
@@ -610,6 +636,32 @@ const es: Content = {
     },
   ],
   smallProjects: [
+    {
+      name: "MaiYop",
+      period: "2026",
+      text: "Un copiloto de carrera con IA que conecta a estudiantes con vacantes y adapta su hoja de vida, hoy en piloto pago. Escribí casi todo el código: un gateway de LLMs que valida cada respuesta y registra su costo, búsqueda vectorial con re-ranking por LLM y hojas de vida en las que cada afirmación cita un hecho real del perfil, para que el modelo no invente experiencia.",
+      tags: ["ai"],
+    },
+    {
+      name: "Docket",
+      period: "2026",
+      text: "Una plataforma de tareas para un bufete de abogados: cinco microservicios en Amazon EKS con Terraform y Argo CD. Construí el espacio de IA del equipo: las reglas que sigue cada persona y cada agente (AGENTS.md), un flujo especificación → plan → tareas → implementación, y servidores MCP y skills compartidos.",
+      tags: ["ai", "devops"],
+      href: "https://github.com/sintratel-docket-platform",
+    },
+    {
+      name: "Aroma Pacífico",
+      period: "2026",
+      text: "La arquitectura de un piloto de trazabilidad de café para Cauca, Huila y Tolima en AWS, con misiones de drones y operación sin señal. Lo lideré y lo trabajé como un equipo multiagente: reglas y skills comunes en cada repositorio, agentes que implementan en ramas y un agente revisor en otro proveedor de IA.",
+      tags: ["ai", "devops"],
+      href: "https://aroma-pacifico.github.io/aroma-pacifico-web/",
+    },
+    {
+      name: "Copiloto IA de Admisión CEM",
+      period: "2026",
+      text: "Un copiloto que escucha en tiempo real las llamadas de una línea de emergencias y sugiere el triaje para que la gestora decida. Proyecto en equipo para Coomeva; agregué llamadas reales con Twilio y un modelo de respaldo para cuando el LLM llega a su límite de uso.",
+      tags: ["ai"],
+    },
     {
       name: "Swarm LLM Orchestrator",
       period: "2026",

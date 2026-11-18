@@ -28,10 +28,14 @@ const smallFirst = focus === "ai";
           <article class="compact card">
             <div class="compact-head">
               <h3>
-                <a href={p.href} target="_blank" rel="noopener noreferrer">
-                  {p.name}
-                  <span class="visually-hidden"> {c.ui.opensInNewTab}</span>
-                </a>
+                {p.href ? (
+                  <a href={p.href} target="_blank" rel="noopener noreferrer">
+                    {p.name}
+                    <span class="visually-hidden"> {c.ui.opensInNewTab}</span>
+                  </a>
+                ) : (
+                  p.name
+                )}
               </h3>
               <p class="mono muted">{p.period}</p>
             </div>
